@@ -7,6 +7,7 @@ public class Ticket {
 
     private static int contadorTickets = 0;
     private int numeroTicket;
+    private int precio;
     private Date fechaCompra;
     private List<LineaTicket> lineas;
     private double totalCompra;
