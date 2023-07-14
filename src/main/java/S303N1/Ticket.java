@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 public class Ticket {
-
+    int precio;
     private static int contadorTickets = 0;
     private int numeroTicket;
     private Date fechaCompra;
