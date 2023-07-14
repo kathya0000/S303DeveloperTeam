@@ -7,7 +7,6 @@ public class Ticket {
 
     private static int contadorTickets = 0;
     private int numeroTicket;
-    private int precio;
     private Date fechaCompra;
     private List<LineaTicket> lineas;
     private double totalCompra;
@@ -36,7 +35,7 @@ public class Ticket {
 
         return totalCompra;
     }
-    public void agragarlinea(LineaTicket linea) {
+    public void agregarlinea(LineaTicket linea) {
         lineas.add(linea);
         totalCompra += linea.getImporte();
     }
