@@ -48,7 +48,7 @@ public class Floristeria {
     public Ticket generarTicket() {
         int numeroTicket;
         numeroTicket = tickets.size() + 1;
-        Date fechaCompra = new Date();
+        Date fechaCompra = new Date(System.currentTimeMillis());
         List<Producto> productosComprados = new ArrayList<>();
         double totalCompra = 0.0;
         //solicitar al usuario los productos que desea comprar
@@ -59,7 +59,7 @@ public class Floristeria {
             totalCompra += producto.getPrecio();
         }
 
-        return new Ticket(numeroTicket, fechaCompra, productosComprados, totalCompra);
+        return new Ticket(fechaCompra);
     }
 
     // recibe un objeto Ticket y lo registra en la lista de tickets de la floristería.
@@ -80,8 +80,8 @@ public class Floristeria {
     private int calcularCantidadProducto(Producto producto) {
         int cantidad = 0;
         for (Ticket ticket : tickets) {
-            for (Producto productoTicket : ticket.getProductos()) {
-                if (productoTicket.equals(producto)) {
+            for (LineaTicket lineaTicket : ticket.getLineas()){
+                if (lineaTicket.getProducto().equals(producto)) {
                     cantidad++;
                 }
             }
