@@ -35,7 +35,7 @@ public class Ticket {
 
         return totalCompra;
     }
-    public void agragarlinea(LineaTicket linea) {
+    public void agregarlinea(LineaTicket linea) {
         lineas.add(linea);
         totalCompra += linea.getImporte();
     }
