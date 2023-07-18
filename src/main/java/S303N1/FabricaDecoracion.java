@@ -1,13 +1,18 @@
 package S303N1;
 
+import java.util.Scanner;
+
 public class FabricaDecoracion implements FabricaProducto {
+    private String nombreDeco;
+    private double precioDeco;
+    private String tipoMaterial;
+    public FabricaDecoracion(String nombreDeco, double precioDeco, String tipoMaterial){
+        this.nombreDeco = nombreDeco;
+        this.precioDeco = precioDeco;
+        this.tipoMaterial = tipoMaterial;
+    }
     @Override
     public Producto crearProducto() {
-        // Lógica para crear y configurar un objeto Decoracion
-        String nombre = "Decoración";
-        double precio = 0.0;
-        String tipoMaterial = "";
-
-        return new Decoracion(nombre, precio, tipoMaterial);
+        return new Decoracion(nombreDeco, precioDeco, tipoMaterial);
     }
 }

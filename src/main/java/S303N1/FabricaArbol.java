@@ -1,13 +1,19 @@
 package S303N1;
 
+import java.util.Scanner;
+
 public class FabricaArbol implements FabricaProducto {
+    private String nombreArbol;
+    private double precioArbol;
+    private double alturaArbol;
+    public FabricaArbol(String nombreArbol,double precioArbol, double alturaArbol){
+        this.nombreArbol = nombreArbol;
+        this.precioArbol = precioArbol;
+        this.alturaArbol = alturaArbol;
+    }
     @Override
     public Producto crearProducto() {
-        // Lógica para crear y configurar un objeto Arbol
-        String nombre = "Árbol";
-        double precio = 0.0;
-        double altura = 0.0;
-
-        return new Arbol(nombre, precio, altura);
+        return new Arbol(nombreArbol, precioArbol, alturaArbol);
     }
+
 }
