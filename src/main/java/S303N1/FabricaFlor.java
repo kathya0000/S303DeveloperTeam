@@ -1,12 +1,18 @@
 package S303N1;
 
+import java.util.Scanner;
+
 public class FabricaFlor implements FabricaProducto {
+    private String nombreFlor;
+    private double precioFlor;
+    private String colorFlor;
+    public FabricaFlor(String nombreFlor, double precioFlor, String colorFlor){
+        this.nombreFlor = nombreFlor;
+        this.precioFlor = precioFlor;
+        this.colorFlor = colorFlor;
+    }
     @Override
     public Producto crearProducto() {
-        // Lógica para crear y configurar un objeto Flor
-        String nombre = "Flor";
-        double precio = 0.0;
-        String color = "";
-        return new Flor(nombre, precio, color);
+        return new Flor(nombreFlor, precioFlor, colorFlor);
     }
 }
