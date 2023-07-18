@@ -1,28 +1,21 @@
 package S303N1;
 
+import java.io.File;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 public class Floristeria {
-    private static Floristeria instance;     //para el patrón Singleton
     private String nombre;
+    private static String nombreArchivo;    //fichero donde se guardarán los datos, con el nombre de la floristería
     private List<Producto> catalogo;
     private List<Ticket> tickets;
-    private Floristeria(String nombre) {     // "private" para evitar el new___ (Singleton)
+    public Floristeria(String nombre) {
         this.nombre = nombre;
         this.catalogo = new ArrayList<>();
         this.tickets = new ArrayList<>();
     }
-    //Getter de la instancia Singleton
-    public static Floristeria getInstance(String nombre) {
-        if (instance == null) {
-            instance = new Floristeria(nombre);
-        }
-        return instance;
-    }
-
 
     // Métodos para gestionar el catálogo y las ventas :
 
@@ -58,17 +51,17 @@ public class Floristeria {
 
     //muestra por consola el catálogo de la floristería, mostrando todos los atributos de cada producto
     public void mostrarCatalogo() {
-        System.out.println("Catálogo de la floristería:");
+        System.out.println("Catálogo de la floristería:\n");
         for (Producto producto : catalogo) {
-            System.out.println(producto.getNombre() + " - Precio: EUR " + producto.getPrecio());
+            System.out.print(producto.getNombre() + " - Precio: EUR " + producto.getPrecio());
             if (producto instanceof Arbol) {
-                System.out.println("Altura ARBOL: " + ((Arbol) producto).getAltura() + "mts.");
+                System.out.println(" - Altura ARBOL: " + ((Arbol) producto).getAltura() + "mts.");
             }
             if (producto instanceof Flor) {
-                System.out.println("Color FLOR: " + ((Flor) producto).getColor());
+                System.out.println(" - Color FLOR: " + ((Flor) producto).getColor());
             }
             if (producto instanceof Decoracion) {
-                System.out.println("Material DECORACION: " + ((Decoracion) producto).getTipoMaterial());
+                System.out.println(" - Material DECORACION: " + ((Decoracion) producto).getTipoMaterial());
             }
         }
     }
@@ -98,7 +91,7 @@ public class Floristeria {
 
     //muestra por consola el stock de la floristería, es decir, la cantidad de cada producto en el catálogo
     public void mostrarStock() {
-        System.out.println("Stock de la floristería:");
+        System.out.println("Stock de la floristería:\n");
         int cantidad = 0;
         int cantidadArboles = 0;
         int cantidadFlores = 0;
@@ -110,27 +103,27 @@ public class Floristeria {
         for (Producto producto : catalogo) {
             if(producto instanceof Arbol) {
                 cantidadArboles++;
-                valorArboles += valorArboles;
+                valorArboles = valorArboles + producto.getPrecio();
                 System.out.println("1 un.ARBOL: " + producto.getNombre() + " valorado en: " + producto.getPrecio() + "EUR");
             }
             if(producto instanceof Flor) {
                 cantidadFlores++;
-                valorFlores += valorFlores;
+                valorFlores = valorFlores + producto.getPrecio();
                 System.out.println("1 un.FLOR: " + producto.getNombre() + " valorada en: " + producto.getPrecio() + "EUR");
             }
             if(producto instanceof Decoracion) {
                 cantidadDecoraciones++;
-                valorDecoraciones += valorDecoraciones;
-                System.out.println("1 un.DECORACIÓN: " + producto.getNombre() + " valorada en: " + producto.getPrecio() + "EUR");
+                valorDecoraciones = valorDecoraciones + producto.getPrecio();
+                System.out.println("1 un.DECORACION: " + producto.getNombre() + " valorada en: " + producto.getPrecio() + "EUR");
             }
         }
         cantidad = cantidadArboles + cantidadFlores + cantidadDecoraciones;
         valorInventario = valorArboles + valorFlores + valorDecoraciones;
-        System.out.println("          " + "CANTIDAD  " + "IMPORTE(EUR)");
+        System.out.println("\n          " + "CANTIDAD  " + "IMPORTE(EUR)");
         System.out.println("ARBOLES       " + cantidadArboles + "     " + valorArboles);
         System.out.println("FLORES        " + cantidadFlores + "     " + valorFlores);
         System.out.println("DECORACIONES  " + cantidadDecoraciones + "     " + valorDecoraciones);
-        System.out.println("-----------------------------------------");
+        System.out.println("--------------------------------");
         System.out.println("TOTAL         " + cantidad + "     " + valorInventario);
     }
 
@@ -158,6 +151,19 @@ public class Floristeria {
 
     // Getters y setters
 
+    public String getNombre(){
+        return nombre;
+    }
+    public String getNombreArchivo(){
+        return nombreArchivo;
+    }
+
+    public List<Producto> getCatalogo() {
+        return catalogo;
+    }
+    public void setCatalogo(List<Producto> catalogoAnterior){
+        this.catalogo = catalogoAnterior;
+    }
 }
 
 
