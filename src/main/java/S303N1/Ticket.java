@@ -3,8 +3,9 @@ package S303N1;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-public class Ticket {
 
+public class Ticket {
+    int precio;
     private static int contadorTickets = 0;
     private int numeroTicket;
     private Date fechaCompra;
@@ -38,6 +39,11 @@ public class Ticket {
     public void agregarlinea(LineaTicket linea) {
         lineas.add(linea);
         totalCompra += linea.getImporte();
+
+        // Actualizar el stock y restar el valor del producto del importe total
+        Producto producto = linea.getProducto();
+        producto.restarCantidad(linea.getCantidad());
+        totalCompra -= linea.getImporte();
     }
 
 }

@@ -8,15 +8,18 @@ import java.util.List;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 
-public abstract class ProductoTXTDAO implements ProductoDAO {
-    private static final String FILE_NAME = "catalogo.txt";
+public class ProductoTXTDAO implements ProductoDAO {
+    private String nombreArchivo;
+    public ProductoTXTDAO(String nombreArchivo){
+        this.nombreArchivo = nombreArchivo + ".txt";
+    }
 
     @Override
     public List<Producto> cargarProductos() {
 
         List<Producto> productos = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(nombreArchivo))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
@@ -44,11 +47,12 @@ public abstract class ProductoTXTDAO implements ProductoDAO {
 
     @Override
     public void guardarProductos(List<Producto> productos) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nombreArchivo))) {
             for (Producto producto : productos) {
-                String tipo = producto instanceof Arbol ? "Arbol" :
-                        producto instanceof Flor ? "Flor" :
-                                producto instanceof Decoracion ? "Decoracion" : "";
+                String tipo =   producto instanceof Arbol ? "Arbol" :
+                                producto instanceof Flor ? "Flor" :
+                                producto instanceof Decoracion ? "Decoracion" :
+                                "";
 
                 String nombre = producto.getNombre();
                 double precio = producto.getPrecio();
