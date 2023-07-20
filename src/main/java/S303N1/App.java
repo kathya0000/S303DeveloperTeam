@@ -58,10 +58,10 @@ public class App {
                 ProductoDAO productoDao = new ProductoTXTDAO(floristeria.getNombre());
                 boolean out = false;
                 do{
-                    System.out.println("\nMenú inicial nueva floristería:\n"+
-                    "\n 1 - Añadir instancia arbol"+
-                    "\n 2 - Añadir instancia flor"+
-                    "\n 0 - Seguir a menú principal (sólo tras haber entrado datos)");
+                    System.out.println( "\nMenú inicial nueva floristería:\n"+
+                                        "\n 1 - Añadir instancia arbol"+
+                                        "\n 2 - Añadir instancia flor"+
+                                        "\n 0 - Seguir a menú principal (sólo tras haber entrado datos)");
                     int opcionMenu0 = input.nextInt();
 
                     switch (opcionMenu0) {
@@ -122,19 +122,19 @@ public class App {
 
             boolean salir = false;
             do {
-                System.out.println("\nMenú Principal:\n"+
-                "\n 1 - Añadir nueva instancia arbol"+
-                "\n 2 - Añadir nueva instancia flor"+
-                "\n 3 - Añadir nueva instancia decoración"+
-                "\n 4 - Listado de stock (instancias añadidas - eliminadas)"+
-                "\n 5 - Retirar instancia arbol (venta ficticia)"+
-                "\n 6 - Retirar instancia flor (venta ficticia)"+
-                "\n 7 - Retirar instancia decoración (venta ficticia)"+
-                "\n 8 - Valor de existencias"+
-                "\n 9 - Registrar una venta e imprimir ticket"+
-                "\n10 - Listado histórico de tickets"+
-                "\n11 - Acumulado de ventas"+
-                "\n 0 - Guardar datos y SALIR");
+                System.out.println( "\nMenú Principal:\n"+
+                                    "\n 1 - Añadir nueva instancia arbol"+
+                                    "\n 2 - Añadir nueva instancia flor"+
+                                    "\n 3 - Añadir nueva instancia decoración"+
+                                    "\n 4 - Listado de stock (instancias añadidas - eliminadas)"+
+                                    "\n 5 - Retirar instancia arbol (venta ficticia)"+
+                                    "\n 6 - Retirar instancia flor (venta ficticia)"+
+                                    "\n 7 - Retirar instancia decoración (venta ficticia)"+
+                                    "\n 8 - Valor de existencias"+
+                                    "\n 9 - Registrar una venta e imprimir ticket"+
+                                    "\n10 - Listado histórico de tickets"+
+                                    "\n11 - Acumulado de ventas"+
+                                    "\n 0 - Guardar datos y SALIR");
 
                 int opcionMenu = input.nextInt();
 
