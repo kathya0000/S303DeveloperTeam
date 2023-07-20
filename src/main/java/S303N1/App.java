@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
-    //   COMPROBAMOS SI HAY DATOS PREVIOS DE LA MISMA FLORISTERIA
+
+    //   COMPROBAMOS SI HAY DATOS PREVIOS DE LA MISMA FLORISTERIA (METODO STATIC)
     private static String obtenerNombreArchivoPrevio(String directorio, String nombreFloristeria) {
         File folder = new File(directorio);
         File[] archivos = folder.listFiles();
@@ -14,15 +15,17 @@ public class App {
             for (File archivo : archivos) {
                 if (archivo.isFile() && archivo.getName().endsWith(".txt")) {
                     String nombreArchivo = archivo.getName().replace(".txt", "");
-                    if (nombreArchivo.equals(nombreFloristeria)) {
+                    if (nombreArchivo.equalsIgnoreCase(nombreFloristeria)) {
                         return archivo.getName();    //devuelve el nombre del txt sólo si hay datos previos
                     }
                 }
             }
         }
-
         return null;
     }
+
+    //    ****************************** MAIN ******************************
+
         public static void main(String[] args) {
 
             //   [ABRIMOS FLORISTERIA Y CARGAMOS SUS DATOS] ó [CREAMOS FLORISTERIA NUEVA]
@@ -40,6 +43,8 @@ public class App {
             String nombreArchivoPrevio = obtenerNombreArchivoPrevio(directorioPersistencia, nombreFloristeria);
 
             if (nombreArchivoPrevio != null) {
+
+                //CASO 1 DE 2: LA FLORISTERIA YA TIENE DATOS: LOS CARGAMOS EN EL CATALOGO
                 System.out.println("Existen datos anteriores de " + nombreArchivoPrevio);
                 System.out.println("         cargando datos previos...");
                 ProductoDAO productoDao = new ProductoTXTDAO(floristeria.getNombre());
@@ -49,14 +54,14 @@ public class App {
 
             } else {
 
+                //CASO 2 DE 2: FLORISTERIA NUEVA: MENÚ "INICIAL" DE ENTRADA DE LOS PRIMEROS DATOS
                 ProductoDAO productoDao = new ProductoTXTDAO(floristeria.getNombre());
                 boolean out = false;
                 do{
-                    System.out.println("\nMenú inicial nueva floristería:\n");
-                    System.out.println(" 1 - Añadir instancia arbol");
-                    System.out.println(" 2 - Añadir instancia flor");
-                    System.out.println(" 3 - Añadir instancia decoración");
-                    System.out.println(" 0 - Seguir a menú principal (sólo tras haber entrado datos)");
+                    System.out.println("\nMenú inicial nueva floristería:\n"+
+                    "\n 1 - Añadir instancia arbol"+
+                    "\n 2 - Añadir instancia flor"+
+                    "\n 0 - Seguir a menú principal (sólo tras haber entrado datos)");
                     int opcionMenu0 = input.nextInt();
 
                     switch (opcionMenu0) {
@@ -113,21 +118,23 @@ public class App {
                 } while(!out);
             }
 
+            //MENÚ PRINCIPAL. AL SALIR, GUARDAREMOS LOS DATOS EN [NOMBRE_FLORISTERIA].TXT
+
             boolean salir = false;
             do {
-                System.out.println("\nMenú Principal:\n");
-                System.out.println(" 1 - Añadir nueva instancia arbol");
-                System.out.println(" 2 - Añadir nueva instancia flor");
-                System.out.println(" 3 - Añadir nueva instancia decoración");
-                System.out.println(" 4 - Listado de stock (instancias añadidas - eliminadas)");
-                System.out.println(" 5 - Retirar instancia arbol (venta ficticia)");
-                System.out.println(" 6 - Retirar instancia flor (venta ficticia)");
-                System.out.println(" 7 - Retirar instancia decoración (venta ficticia)");
-                System.out.println(" 8 - Valor de existencias");
-                System.out.println(" 9 - Registrar una venta e imprimir ticket");
-                System.out.println("10 - Listado histórico de tickets");
-                System.out.println("11 - Acumulado de ventas");
-                System.out.println(" 0 - Guardar datos y SALIR");
+                System.out.println("\nMenú Principal:\n"+
+                "\n 1 - Añadir nueva instancia arbol"+
+                "\n 2 - Añadir nueva instancia flor"+
+                "\n 3 - Añadir nueva instancia decoración"+
+                "\n 4 - Listado de stock (instancias añadidas - eliminadas)"+
+                "\n 5 - Retirar instancia arbol (venta ficticia)"+
+                "\n 6 - Retirar instancia flor (venta ficticia)"+
+                "\n 7 - Retirar instancia decoración (venta ficticia)"+
+                "\n 8 - Valor de existencias"+
+                "\n 9 - Registrar una venta e imprimir ticket"+
+                "\n10 - Listado histórico de tickets"+
+                "\n11 - Acumulado de ventas"+
+                "\n 0 - Guardar datos y SALIR");
 
                 int opcionMenu = input.nextInt();
 
