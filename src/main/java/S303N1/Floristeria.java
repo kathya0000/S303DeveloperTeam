@@ -51,19 +51,47 @@ public class Floristeria {
 
     //muestra por consola el catálogo de la floristería, mostrando todos los atributos de cada producto
     public void mostrarCatalogo() {
-        System.out.println("Catálogo de la floristería:\n");
+        System.out.println("\nCatálogo de "+ Floristeria.this.getNombre() +":\n");
+        int stockArboles = 0;
+        int stockFlores = 0;
+        int stockDecoraciones = 0;
+
         for (Producto producto : catalogo) {
-            System.out.print(producto.getNombre() + " - Precio: EUR " + producto.getPrecio());
+            System.out.println("****ÁRBOLES :");
             if (producto instanceof Arbol) {
-                System.out.println(" - Altura ARBOL: " + ((Arbol) producto).getAltura() + "mts.");
+                System.out.print("    "+producto.getNombre() + " - Precio: €" + producto.getPrecio());
+                System.out.println(" - Altura: " + ((Arbol) producto).getAltura() + "m");
+                stockArboles++;
             }
-            if (producto instanceof Flor) {
-                System.out.println(" - Color FLOR: " + ((Flor) producto).getColor());
-            }
-            if (producto instanceof Decoracion) {
-                System.out.println(" - Material DECORACION: " + ((Decoracion) producto).getTipoMaterial());
+            if (stockArboles == 0) {
+                System.out.println("    sin stock de Árboles");
             }
         }
+
+        for (Producto producto : catalogo) {
+            System.out.println("****FLORES :");
+            if (producto instanceof Flor) {
+                System.out.print("    "+producto.getNombre() + " - Precio: €" + producto.getPrecio());
+                System.out.println(" - Color: " + ((Flor) producto).getColor());
+                stockFlores++;
+            }
+            if (stockFlores == 0) {
+                System.out.println("    sin stock de Flores");
+            }
+        }
+
+        for (Producto producto : catalogo) {
+            System.out.println("****DECORACIONES :");
+            if (producto instanceof Decoracion) {
+                System.out.print("    "+producto.getNombre() + " - Precio: €" + producto.getPrecio());
+                System.out.println(" - Material: " + ((Decoracion) producto).getTipoMaterial());
+                stockDecoraciones++;
+            }
+            if (stockDecoraciones == 0) {
+                System.out.println("    sin stock de Decoraciones");
+            }
+        }
+
     }
 
     //genera un nuevo ticket de compra. Aquí debes implementar la lógica para solicitar al usuario los productos que desea comprar y calcular el total de la compra.

@@ -1,6 +1,7 @@
 package S303N1;
 
 import java.io.File;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -59,8 +60,9 @@ public class App {
                 boolean out = false;
                 do{
                     System.out.println( "\nMenú inicial nueva floristería:\n"+
-                                        "\n 1 - Añadir instancia arbol"+
-                                        "\n 2 - Añadir instancia flor"+
+                                        "\n 1 - Añadir primera arbol"+
+                                        "\n 2 - Añadir primera flor"+
+                                        "\n 3 - Añadir primera decoración"+
                                         "\n 0 - Seguir a menú principal (sólo tras haber entrado datos)");
                     int opcionMenu0 = input.nextInt();
 
@@ -73,43 +75,13 @@ public class App {
                             }
                             break;
                         case 1:
-                            input.nextLine();
-                            System.out.println("Nombre del arbol: ");
-                            String nombreArbol = input.nextLine();
-                            System.out.println("Precio (EUR) del arbol '"+ nombreArbol +"'");
-                            double precioArbol = input.nextDouble();
-                            System.out.println("Altura (mts) del arbol '"+ nombreArbol +"'");
-                            double alturaArbol = input.nextDouble();
-                            input.nextLine();
-                            FabricaProducto fabricaArbol = new FabricaArbol(nombreArbol, precioArbol, alturaArbol);
-                            Producto arbol = fabricaArbol.crearProducto();
-                            floristeria.agregarProducto(arbol);
+                            agregarArbol(floristeria);
                             break;
                         case 2:
-                            input.nextLine();
-                            System.out.println("Nombre de la flor: ");
-                            String nombreFlor = input.nextLine();
-                            System.out.println("Precio (EUR) de la flor '"+ nombreFlor +"'");
-                            double precioFlor = input.nextDouble();
-                            input.nextLine();
-                            System.out.println("Color de la flor '"+ nombreFlor +"'");
-                            String alturaFlor = input.nextLine();
-                            FabricaProducto fabricaFlor = new FabricaFlor(nombreFlor, precioFlor, alturaFlor);
-                            Producto flor = fabricaFlor.crearProducto();
-                            floristeria.agregarProducto(flor);
+                            agregarFlor(floristeria);
                             break;
                         case 3:
-                            input.nextLine();
-                            System.out.println("Nombre de la decoración: ");
-                            String nombreDeco = input.nextLine();
-                            System.out.println("Precio (EUR) de la decoración '"+ nombreDeco +"'");
-                            double precioDeco = input.nextDouble();
-                            input.nextLine();
-                            System.out.println("Tipo de material de '"+ nombreDeco +"'");
-                            String tipoMaterial = input.nextLine();
-                            FabricaProducto fabricaDecoracion = new FabricaDecoracion(nombreDeco, precioDeco, tipoMaterial);
-                            Producto decoracion = fabricaDecoracion.crearProducto();
-                            floristeria.agregarProducto(decoracion);
+                            agregarDecoracion(floristeria);
                             break;
                         default:
                             System.out.println("Inténtalo de nuevo");
@@ -145,43 +117,13 @@ public class App {
                         salir = true;
                         break;
                     case 1:
-                        input.nextLine();
-                        System.out.println("Nombre del arbol: ");
-                        String nombreArbol = input.nextLine();
-                        System.out.println("Precio (EUR) del arbol '"+ nombreArbol +"'");
-                        double precioArbol = input.nextDouble();
-                        System.out.println("Altura (mts) del arbol '"+ nombreArbol +"'");
-                        double alturaArbol = input.nextDouble();
-                        input.nextLine();
-                        FabricaProducto fabricaArbol = new FabricaArbol(nombreArbol, precioArbol, alturaArbol);
-                        Producto arbol = fabricaArbol.crearProducto();
-                        floristeria.agregarProducto(arbol);
+                        agregarArbol(floristeria);
                         break;
                     case 2:
-                        input.nextLine();
-                        System.out.println("Nombre de la flor: ");
-                        String nombreFlor = input.nextLine();
-                        System.out.println("Precio (EUR) de la flor '"+ nombreFlor +"'");
-                        double precioFlor = input.nextDouble();
-                        input.nextLine();
-                        System.out.println("Color de la flor '"+ nombreFlor +"'");
-                        String alturaFlor = input.nextLine();
-                        FabricaProducto fabricaFlor = new FabricaFlor(nombreFlor, precioFlor, alturaFlor);
-                        Producto flor = fabricaFlor.crearProducto();
-                        floristeria.agregarProducto(flor);
+                        agregarFlor(floristeria);
                         break;
                     case 3:
-                        input.nextLine();
-                        System.out.println("Nombre de la decoración: ");
-                        String nombreDeco = input.nextLine();
-                        System.out.println("Precio (EUR) de la decoración '"+ nombreDeco +"'");
-                        double precioDeco = input.nextDouble();
-                        input.nextLine();
-                        System.out.println("Tipo de material de '"+ nombreDeco +"'");
-                        String tipoMaterial = input.nextLine();
-                        FabricaProducto fabricaDecoracion = new FabricaDecoracion(nombreDeco, precioDeco, tipoMaterial);
-                        Producto decoracion = fabricaDecoracion.crearProducto();
-                        floristeria.agregarProducto(decoracion);
+                        agregarDecoracion(floristeria);
                         break;
                     case 4:
                         floristeria.mostrarCatalogo();
@@ -225,8 +167,99 @@ public class App {
                 }
             } while (!salir);
             input.close();
+
         }
+
+    private static void agregarArbol(Floristeria floristeria) {
+        Scanner input = new Scanner(System.in);
+        input.nextLine();
+
+        System.out.println("Nombre del arbol: ");
+        String nombreArbol = input.nextLine();
+
+        System.out.println("Precio (EUR) del arbol '"+ nombreArbol +"'");
+        String inputPrecioArbol = input.nextLine();
+        // Reemplazar puntos por comas en el precio ingresado
+        inputPrecioArbol = inputPrecioArbol.replace(',', '.');
+        double precioArbol = 0;
+        try {
+            precioArbol = Double.parseDouble(inputPrecioArbol);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Debes ingresar un número válido.");
+            System.exit(1);
+        }
+
+        System.out.println("Altura (mts) del arbol '"+ nombreArbol +"'");
+        String inputAlturaArbol = input.nextLine();
+        // Reemplazar puntos por comas en la altura ingresada
+        inputAlturaArbol = inputAlturaArbol.replace(',', '.');
+        double alturaArbol = 0;
+        try {
+            alturaArbol = Double.parseDouble(inputAlturaArbol);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Debes ingresar un número válido.");
+            System.exit(1);
+        }
+
+        FabricaProducto fabricaArbol = new FabricaArbol(nombreArbol, precioArbol, alturaArbol);
+        Producto arbol = fabricaArbol.crearProducto();
+        floristeria.agregarProducto(arbol);
     }
+
+    private static void agregarFlor(Floristeria floristeria){
+        Scanner input = new Scanner(System.in);
+        input.nextLine();
+
+        System.out.println("Nombre de la flor: ");
+        String nombreFlor = input.nextLine();
+
+        System.out.println("Precio (EUR) de la flor '"+ nombreFlor +"'");
+        String inputPrecioFlor = input.nextLine();
+        // Reemplazar puntos por comas en el precio ingresado
+        inputPrecioFlor = inputPrecioFlor.replace(',', '.');
+        double precioFlor = 0;
+        try {
+            precioFlor = Double.parseDouble(inputPrecioFlor);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Debes ingresar un número válido.");
+            System.exit(1);
+        }
+
+        System.out.println("Color de la flor '"+ nombreFlor +"'");
+        String colorFlor = input.nextLine();
+        FabricaProducto fabricaFlor = new FabricaFlor(nombreFlor, precioFlor, colorFlor);
+        Producto flor = fabricaFlor.crearProducto();
+        floristeria.agregarProducto(flor);
+    }
+
+    private static void agregarDecoracion(Floristeria floristeria){
+        Scanner input = new Scanner(System.in);
+        input.nextLine();
+
+        System.out.println("Nombre de la decoración: ");
+        String nombreDeco = input.nextLine();
+
+        System.out.println("Precio (EUR) de la decoración '"+ nombreDeco +"'");
+        String inputPrecioDeco = input.nextLine();
+        // Reemplazar puntos por comas en el precio ingresado
+        inputPrecioDeco = inputPrecioDeco.replace(',', '.');
+        double precioDeco = 0;
+        try {
+            precioDeco = Double.parseDouble(inputPrecioDeco);
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Debes ingresar un número válido.");
+            System.exit(1);
+        }
+
+        System.out.println("Tipo de material de '"+ nombreDeco +"'");
+        String tipoMaterial = input.nextLine();
+
+        FabricaProducto fabricaDecoracion = new FabricaDecoracion(nombreDeco, precioDeco, tipoMaterial);
+        Producto decoracion = fabricaDecoracion.crearProducto();
+        floristeria.agregarProducto(decoracion);
+    }
+
+}
 
 
 
