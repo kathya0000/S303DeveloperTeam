@@ -1,31 +1,20 @@
 package S303N1;
 
 public class LineaTicket {
-
+    private int numLinea = 0;
     private Producto producto;
-    private int cantidad;
-    private double precio;
 
-    public LineaTicket(Producto producto, int cantidad, double precio) {
+    public LineaTicket(int numLinea, Producto producto) {
+        this.numLinea = numLinea;
         this.producto = producto;
-        this.cantidad = cantidad;
-        this.precio = precio;
     }
     //Getter
+    public int getNumLinea() { return numLinea; }
     public Producto getProducto() {
         return producto;
     }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
     public double getPrecio() {
-        return precio;
+        return producto.getPrecio();
     }
 
-    public double getImporte() {
-        double importe = 0;
-        return importe;
-    }
 }

@@ -46,7 +46,7 @@ public class App {
             if (nombreArchivoPrevio != null) {
 
                 //CASO 1 DE 2: LA FLORISTERIA YA TIENE DATOS: LOS CARGAMOS EN EL CATALOGO
-                System.out.println("Existen datos anteriores de " + nombreArchivoPrevio);
+                System.out.println("Existen datos anteriores de " + floristeria.getNombre());
                 System.out.println("         cargando datos previos...");
                 ProductoDAO productoDao = new ProductoTXTDAO(floristeria.getNombre());
                 List<Producto> productos = productoDao.cargarProductos();
@@ -60,7 +60,7 @@ public class App {
                 boolean out = false;
                 do{
                     System.out.println( "\nMenú inicial nueva floristería:\n"+
-                                        "\n 1 - Añadir primera arbol"+
+                                        "\n 1 - Añadir primer arbol"+
                                         "\n 2 - Añadir primera flor"+
                                         "\n 3 - Añadir primera decoración"+
                                         "\n 0 - Seguir a menú principal (sólo tras haber entrado datos)");
@@ -93,8 +93,9 @@ public class App {
             //MENÚ PRINCIPAL. AL SALIR, GUARDAREMOS LOS DATOS EN [NOMBRE_FLORISTERIA].TXT
 
             boolean salir = false;
+            int opcionMenu;
             do {
-                System.out.println( "\nMenú Principal:\n"+
+                System.out.println( "\nMENU PRINCIPAL:"+
                                     "\n 1 - Añadir nueva instancia arbol"+
                                     "\n 2 - Añadir nueva instancia flor"+
                                     "\n 3 - Añadir nueva instancia decoración"+
@@ -108,7 +109,8 @@ public class App {
                                     "\n11 - Acumulado de ventas"+
                                     "\n 0 - Guardar datos y SALIR");
 
-                int opcionMenu = input.nextInt();
+                opcionMenu = input.nextInt();
+                input.nextLine();
 
                 switch (opcionMenu) {
                     case 0:
@@ -129,38 +131,39 @@ public class App {
                         floristeria.mostrarCatalogo();
                         break;
                     case 5:
-                        input.nextLine();
                         System.out.println("Nombre del árbol a eliminar: ");
                         String nombreArbolAEliminar = input.nextLine();
                         floristeria.retirarProducto(nombreArbolAEliminar);
                         break;
                     case 6:
-                        input.nextLine();
                         System.out.println("Nombre de la flor a eliminar: ");
                         String nombreFlorAEliminar = input.nextLine();
                         floristeria.retirarProducto(nombreFlorAEliminar);
                         break;
                     case 7:
-                        input.nextLine();
                         System.out.println("Nombre de la decoración a eliminar: ");
                         String nombreDecorAEliminar = input.nextLine();
                         floristeria.retirarProducto(nombreDecorAEliminar);
                         break;
                     case 8:
+                        System.out.println("\nValor de existencias = €" + floristeria.calcularValorTotal());
+                        System.out.println("***********************************");
                         floristeria.mostrarStock();
                         break;
                     case 9:
-
+                        Ticket ticket = null;
+                        try {
+                            ticket = floristeria.generarTicket();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        ticket.verTicket();
                         break;
                     case 10:
-                        Ticket ticket = floristeria.generarTicket();
-                        floristeria.registrarVenta(ticket);
+                        floristeria.imprimirTickets();
                         break;
                     case 11:
                         floristeria.mostrarVentasTotal();
-                        break;
-                    case 12:
-
                         break;
                     default:
                         System.out.println("Inténtalo de nuevo");
@@ -172,7 +175,6 @@ public class App {
 
     private static void agregarArbol(Floristeria floristeria) {
         Scanner input = new Scanner(System.in);
-        input.nextLine();
 
         System.out.println("Nombre del arbol: ");
         String nombreArbol = input.nextLine();
@@ -208,7 +210,6 @@ public class App {
 
     private static void agregarFlor(Floristeria floristeria){
         Scanner input = new Scanner(System.in);
-        input.nextLine();
 
         System.out.println("Nombre de la flor: ");
         String nombreFlor = input.nextLine();
@@ -234,7 +235,6 @@ public class App {
 
     private static void agregarDecoracion(Floristeria floristeria){
         Scanner input = new Scanner(System.in);
-        input.nextLine();
 
         System.out.println("Nombre de la decoración: ");
         String nombreDeco = input.nextLine();

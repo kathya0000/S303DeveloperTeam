@@ -4,46 +4,58 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Ticket {
-    int precio;
     private static int contadorTickets = 0;
     private int numeroTicket;
-    private Date fechaCompra;
+    private Date fechaTicket;
     private List<LineaTicket> lineas;
-    private double totalCompra;
+    private List<Producto> productosVendidos;
+    private double totalVenta;
+    private Producto productoSeleccionado;
 
-    //Constructor
-    public Ticket(Date fechaCompra) {
-        this.numeroTicket = contadorTickets++;
-        this.fechaCompra = fechaCompra;
+    public Ticket() {
+        contadorTickets++;
+        this.fechaTicket = new Date(System.currentTimeMillis());
+        this.numeroTicket = contadorTickets;
         this.lineas = new ArrayList<>();
-        this.totalCompra = 0.0;
+        this.totalVenta = 0.0;
+        this.productosVendidos = new ArrayList<Producto>();
     }
+
     //Getter
-    public int getNumeroTicket() {
+    public int getNumeroTicket() {  return numeroTicket;    }
+    public Date getFechaTicket() {  return fechaTicket;    }
+    public double getTotalVenta() { return totalVenta;  }
+    public ArrayList<LineaTicket> getLineas(){  return (ArrayList<LineaTicket>) lineas;  }
 
-        return numeroTicket;
+
+    public void agregarLinea(int numeroTicket, Producto productoSeleccionado) {
+        this.numeroTicket = numeroTicket;
+        int numLinea = this.lineas.size()+1;
+        LineaTicket nuevaLinea = new LineaTicket(numLinea, productoSeleccionado);
+        lineas.add(nuevaLinea);
+        this.totalVenta += nuevaLinea.getProducto().getPrecio();
     }
-    public Date getFechaCompra() {
 
-        return fechaCompra;
+
+    // leer
+    public void verTicket() {
+        System.out.println("Número de ticket: " + numeroTicket);
+        System.out.println(" Fecha de venta: " + fechaTicket);
+        System.out.println(" Artículos:");
+        for (LineaTicket linea : lineas) {
+            System.out.println("   " + linea.getNumLinea() + " - 1ud." + linea.getProducto().getNombre() + " - €" + linea.getPrecio());
+        }
+        System.out.println(" Importe total: €" + totalVenta + " \n");
     }
-    public List<LineaTicket> getLineas() {
 
-        return lineas;
-    }
-    public double getTotalCompra() {
-
-        return totalCompra;
-    }
-    public void agregarlinea(LineaTicket linea) {
-        lineas.add(linea);
-        totalCompra += linea.getImporte();
-
-        // Actualizar el stock y restar el valor del producto del importe total
-        Producto producto = linea.getProducto();
-        producto.restarCantidad(linea.getCantidad());
-        totalCompra -= linea.getImporte();
+    //Calcular Total tickets
+    private void calcularTotalVenta () {
+        totalVenta = 0.0;
+        for (LineaTicket linea : lineas) {
+            totalVenta += linea.getPrecio();
+        }
     }
 
 }
