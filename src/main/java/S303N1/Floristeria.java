@@ -2,29 +2,46 @@ package S303N1;
 
 import java.io.File;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class Floristeria {
+
+    public static Ticket[] getHistoricoTicket;
+    private final ArrayList<Object> tickets;
     private String nombre;
     private static String nombreArchivo;    //fichero donde se guardarán los datos, con el nombre de la floristería
     private List<Producto> catalogo;
-    private List<Ticket> tickets;
+    private List<Ticket> historicoTickets;
+    private Map<Producto, Integer> stock;
+
+
     public Floristeria(String nombre) {
         this.nombre = nombre;
         this.catalogo = new ArrayList<>();
         this.tickets = new ArrayList<>();
+        this.stock = new HashMap<>();
+        this.historicoTickets = new ArrayList<>();
+
+    }
+
+    private static Stream<?> apply(Object ticket) {
+        
+        
+        return ticket.getClass().stream();
     }
 
     // Métodos para gestionar el catálogo y las ventas :
 
 
     //recibe un objeto Producto y lo agrega al catálogo de la floristería.
-    public void agregarProducto(Producto producto) {
-        catalogo.add(producto);
+    public void agregarProducto(Producto producto, int cantidad) {
+            catalogo.add(producto);
+            stock.put(producto,cantidad);
     }
-
+    public Map<Producto, Integer> getStock() {
+        return stock;
+    }
     //recibe un objeto Producto y lo retira del catálogo de la floristería.
     public void retirarProducto(String nombreProducto) {
         try {
@@ -81,12 +98,23 @@ public class Floristeria {
             totalCompra += producto.getPrecio();
         }
 
-        return new Ticket(fechaCompra);
+        return new Ticket(Date fechaCompra);
     }
-
+    public double calcularValorTotal() {
+        double valorTotal = 0.0;
+        for (Map.Entry<Producto, Integer> entry : stock.entrySet()) {
+            Producto producto = entry.getKey();
+            int cantidad = entry.getValue();
+            valorTotal += producto.getPrecio() * cantidad;
+        }
+        return valorTotal;
+    }
+    public List<Ticket> getHistoricoTickets() {
+        return historicoTickets;
+    }
     // recibe un objeto Ticket y lo registra en la lista de tickets de la floristería.
     public void registrarVenta(Ticket ticket) {
-        tickets.add(ticket);
+        historicoTickets.add(ticket);
     }
 
     //muestra por consola el stock de la floristería, es decir, la cantidad de cada producto en el catálogo
@@ -128,23 +156,20 @@ public class Floristeria {
     }
 
     //método auxiliar que calcula la cantidad de un producto específico en los tickets de venta.
-    private int calcularCantidadProducto(Producto producto) {
-        int cantidad = 0;
-        for (Ticket ticket : tickets) {
-            for (LineaTicket lineaTicket : ticket.getLineas()){
-                if (lineaTicket.getProducto().equals(producto)) {
-                    cantidad++;
-                }
-            }
-        }
+    private int calcularCantidadProducto(Producto producto) { //Lamda
+        int cantidad = (int) tickets.stream().flatMap(Floristeria::apply).filter(lineaTicket -> {
+            if (Objects.equals(lineaTicket.getNombre(),
+                    producto)) return true;
+            else return false;
+        }).count();
         return cantidad;
     }
 
     //muestra por consola el total de todas las ventas registradas en los tickets.
     public void mostrarVentasTotal() {
         double valorTotal = 0.0;
-        for (Ticket ticket : tickets) {
-            valorTotal += ticket.getTotalCompra();
+        for (Object ticket : tickets) {
+            valorTotal = valorTotal + ticket.getClass();
         }
         System.out.println("Ventas totales de la floristería: EUR " + valorTotal);
     }
@@ -152,18 +177,46 @@ public class Floristeria {
     // Getters y setters
 
     public String getNombre(){
+
+
         return nombre;
     }
     public String getNombreArchivo(){
+
+
         return nombreArchivo;
     }
 
     public List<Producto> getCatalogo() {
+
+
         return catalogo;
     }
     public void setCatalogo(List<Producto> catalogoAnterior){
+
+
         this.catalogo = catalogoAnterior;
     }
-}
 
+
+    public void setHistoricoTickets(Ticket[] historicoTickets) {
+        this.historicoTickets = List.of(historicoTickets);
+    }
+
+    public void mostrarTickets() {
+        return;
+    }
+
+    public String calcularVentasTotal() {
+        return null;
+    }
+
+    public void addHistoricalTicket(Ticket ticket) {
+        return;
+    }
+
+    public void agregarProducto(Producto arbol) {
+        return;
+    }
+}
 
