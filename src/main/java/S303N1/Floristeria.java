@@ -21,8 +21,27 @@ public class Floristeria {
         this.stock = new HashMap<>();
 
     }
+    // Getters
+    public String getNombre(){
+        return this.nombre;
+    }
+    public String getNombreArchivo () { return nombreArchivo;   }
+    public List<Producto> getCatalogo () {
+        return catalogo;
+    }
+    public List<Ticket> getHistoricoTickets () {
+        return tickets;
+    }
 
+    //Setters
+    public void setCatalogo (List<Producto> catalogoAnterior) {
+        this.catalogo = catalogoAnterior;
+    }
+    /*public void setHistoricoTickets (ArrayList<Ticket> historicoTickets) {
+        this.tickets = historicoTickets;
+    }*/
 
+    //Metodos generales
     //recibe un objeto Producto y lo agrega al catálogo de la floristería.
     public void agregarProducto(Producto producto) {
         catalogo.add(producto);
@@ -54,51 +73,52 @@ public class Floristeria {
 
     //muestra por consola el catálogo de la floristería, mostrando todos los atributos de cada producto
     public void mostrarCatalogo() {
-        System.out.println("\nCatálogo de " + Floristeria.this.getNombre() + ":\n");
+        System.out.println("\nCatálogo de la Floristeria " + Floristeria.this.getNombre() + ":\n");
 
         int stockArboles = 0;
+        boolean hayArboles = false;//variable boolean para verificar si hay arboles
         System.out.println(" ***ÁRBOLES :");
-        for (Producto producto : catalogo) {
-            if (producto instanceof Flor){}
-            else if (producto instanceof Decoracion){}
-                else if (producto instanceof Arbol) {
-                    System.out.print("    " + producto.getNombre() + " - Precio: €" + producto.getPrecio());
-                    System.out.println(" - Altura: " + ((Arbol) producto).getAltura() + "m");
-                    stockArboles++;
-                }
-                else if (stockArboles == 0) {
-                    System.out.println("    sin stock de Árboles");
-                }
+        for (Producto producto : catalogo) { //dentro del bucle si hay arboles imprime detalles e incrementa  la variable
+            if (producto instanceof Arbol) {
+                System.out.print("    " + producto.getNombre() + " - Precio: €" + producto.getPrecio());
+                System.out.println(" - Altura: " + ((Arbol) producto).getAltura() + "m");
+                stockArboles++;
+                hayArboles = true;//establece en verdadero si hay al menos un arbol
+            }
+        }
+        if (!hayArboles) { //si es diferente a hayarboles imprime no stock
+            System.out.println("    Sin stock de Árboles");
         }
 
         int stockFlores = 0;
+        boolean hayFlores = false;
         System.out.println(" ***FLORES :");
         for (Producto producto : catalogo) {
-            if (producto instanceof Arbol){}
-                else if (producto instanceof Decoracion){}
-                else if (producto instanceof Flor) {
-                    System.out.print("    " + producto.getNombre() + " - Precio: €" + producto.getPrecio());
-                    System.out.println(" - Color: " + ((Flor) producto).getColor());
-                    stockFlores++;
-                }
-                else if (stockFlores == 0) {
-                    System.out.println("    sin stock de Flores");
-                }
+            if (producto instanceof Flor) {
+                System.out.print("    " + producto.getNombre() + " - Precio: €" + producto.getPrecio());
+                System.out.println(" - Color: " + ((Flor) producto).getColor());
+                stockFlores++;
+                hayFlores = true;
+            }
+        }
+        if (!hayFlores) {
+           System.out.println("    Sin stock de Flores");
         }
 
         int stockDecoraciones = 0;
+        boolean hayDecoraciones = false;
         System.out.println(" ***DECORACIONES :");
         for (Producto producto : catalogo) {
-            if (producto instanceof Arbol){}
-                else if (producto instanceof Flor){}
-                else if (producto instanceof Decoracion) {
-                    System.out.print("    " + producto.getNombre() + " - Precio: €" + producto.getPrecio());
-                    System.out.println(" - Material: " + ((Decoracion) producto).getTipoMaterial());
-                    stockDecoraciones++;
-                }
-                else if (stockDecoraciones == 0) {
-                    System.out.println("    sin stock de Decoraciones");
-                }
+            if (producto instanceof Decoracion) {
+                System.out.print("    " + producto.getNombre() + " - Precio: €" + producto.getPrecio());
+                System.out.println(" - Material: " + ((Decoracion) producto).getTipoMaterial());
+                stockDecoraciones++;
+                hayDecoraciones = true;
+            }
+        }
+        if (!hayDecoraciones) {
+            System.out.println("    Sin stock de Decoraciones");
+
         }
 
     }
@@ -106,9 +126,8 @@ public class Floristeria {
     //Generar TICKET
     public Ticket generarTicket() throws InterruptedException {
         Ticket nuevoTicket = new Ticket();      //faltará añadir productos (lineas)
-        tickets.add(nuevoTicket);    // Agregar el ticket a la lista de tickets
-
         generarVenta(nuevoTicket);
+        tickets.add(nuevoTicket);    // Agregar el ticket a la lista de tickets
         return nuevoTicket;
     }
 
@@ -149,10 +168,10 @@ public class Floristeria {
             if (respuesta.equalsIgnoreCase("no")) {
                 agregarProductos = false;
             }
-        }
 
-        // Registra la venta en el histórico de Tickets
-        tickets.add(nuevoTicket);
+            /*Registra la venta en el histórico de Tickets
+            tickets.add(nuevoTicket);*/
+        }
     }
 
 
@@ -170,29 +189,29 @@ public class Floristeria {
         for (Producto producto : catalogo) {
             if (producto instanceof Arbol) {
                 cantidadArboles++;
-                valorArboles = valorArboles + producto.getPrecio();
+                valorArboles = producto.getPrecio();
                 System.out.println("1 un.ARBOL: " + producto.getNombre() + " valorado en: " + producto.getPrecio() + "EUR");
-            }
-            if (producto instanceof Flor) {
+            } else if (producto instanceof Flor) {
                 cantidadFlores++;
-                valorFlores = valorFlores + producto.getPrecio();
+                valorFlores = producto.getPrecio();
                 System.out.println("1 un.FLOR: " + producto.getNombre() + " valorada en: " + producto.getPrecio() + "EUR");
-            }
-            if (producto instanceof Decoracion) {
+            } else if (producto instanceof Decoracion) {
                 cantidadDecoraciones++;
-                valorDecoraciones = valorDecoraciones + producto.getPrecio();
+                valorDecoraciones = producto.getPrecio();
                 System.out.println("1 un.DECORACION: " + producto.getNombre() + " valorada en: " + producto.getPrecio() + "EUR");
             }
         }
         cantidad = cantidadArboles + cantidadFlores + cantidadDecoraciones;
         valorInventario = valorArboles + valorFlores + valorDecoraciones;
-        System.out.println("\n          " + "CANTIDAD  " + "IMPORTE(EUR)");
+        System.out.println("\nPRODUCTOS   " + "CANTIDAD  "  + "IMPORTE(EUR)");
+        System.out.println("--------------------------------");
         System.out.println("ARBOLES       " + cantidadArboles + "     " + valorArboles);
         System.out.println("FLORES        " + cantidadFlores + "     " + valorFlores);
         System.out.println("DECORACIONES  " + cantidadDecoraciones + "     " + valorDecoraciones);
         System.out.println("--------------------------------");
         System.out.println("TOTAL         " + cantidad + "     " + valorInventario);
     }
+
 
     //
     public double calcularValorTotal () {
@@ -225,26 +244,6 @@ public class Floristeria {
             System.out.println(" Importe Total: €" + ticket.getTotalVenta());
             System.out.println("----\n");
         }
-    }
-
-    
-    // Getters y setters
-
-    public String getNombre(){
-        return this.nombre;
-    }
-    public String getNombreArchivo () { return nombreArchivo;   }
-    public List<Producto> getCatalogo () {
-        return catalogo;
-    }
-    public List<Ticket> getHistoricoTickets () {
-        return tickets;
-    }
-    public void setCatalogo (List<Producto> catalogoAnterior) {
-        this.catalogo = catalogoAnterior;
-    }
-    public void setHistoricoTickets (ArrayList<Ticket> historicoTickets) {
-        this.tickets = historicoTickets;
     }
 
 }

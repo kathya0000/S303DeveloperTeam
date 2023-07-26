@@ -41,6 +41,7 @@ public class Ticket {
 
     // leer
     public void verTicket() {
+        //Verifica si el numTicket ya esta hecho
         System.out.println("Número de ticket: " + numeroTicket);
         System.out.println(" Fecha de venta: " + fechaTicket);
         System.out.println(" Artículos:");

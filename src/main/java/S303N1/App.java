@@ -30,8 +30,6 @@ public class App {
         public static void main(String[] args) {
 
             //   [ABRIMOS FLORISTERIA Y CARGAMOS SUS DATOS] ó [CREAMOS FLORISTERIA NUEVA]
-
-            System.out.println("\nEn primer lugar, vamos a abrir el negocio de floristería.");
             Scanner input = new Scanner(System.in);
             System.out.println("Nombre de la floristería: ");
             String nombreFloristeria = input.nextLine();
@@ -63,7 +61,7 @@ public class App {
                                         "\n 1 - Añadir primer arbol"+
                                         "\n 2 - Añadir primera flor"+
                                         "\n 3 - Añadir primera decoración"+
-                                        "\n 0 - Seguir a menú principal (sólo tras haber entrado datos)");
+                                        "\n 0 - Seguir a menú principal (Sólo tras haber entrado datos)");
                     int opcionMenu0 = input.nextInt();
 
                     switch (opcionMenu0) {
@@ -95,19 +93,19 @@ public class App {
             boolean salir = false;
             int opcionMenu;
             do {
-                System.out.println( "\nMENU PRINCIPAL:"+
-                                    "\n 1 - Añadir nueva instancia arbol"+
-                                    "\n 2 - Añadir nueva instancia flor"+
-                                    "\n 3 - Añadir nueva instancia decoración"+
-                                    "\n 4 - Listado de stock (instancias añadidas - eliminadas)"+
-                                    "\n 5 - Retirar instancia arbol (venta ficticia)"+
-                                    "\n 6 - Retirar instancia flor (venta ficticia)"+
-                                    "\n 7 - Retirar instancia decoración (venta ficticia)"+
-                                    "\n 8 - Valor de existencias"+
-                                    "\n 9 - Registrar una venta e imprimir ticket"+
-                                    "\n10 - Listado histórico de tickets"+
-                                    "\n11 - Acumulado de ventas"+
-                                    "\n 0 - Guardar datos y SALIR");
+                System.out.println( "\nMenu principal:\n "
+                                    + "\n 1 - Añadir nueva instancia arbol"
+                                    + "\n 2 - Añadir nueva instancia flor"
+                                    + "\n 3 - Añadir nueva instancia decoración"
+                                    + "\n 4 - Listado de stock (Instancias añadidas - eliminadas)"
+                                    + "\n 5 - Retirar instancia arbol (Venta ficticia)"
+                                    + "\n 6 - Retirar instancia flor (Venta ficticia)"
+                                    + "\n 7 - Retirar instancia decoración (Venta ficticia)"
+                                    + "\n 8 - Valor de existencias"
+                                    + "\n 9 - Registrar una venta e imprimir ticket"
+                                    + "\n 10 - Listado histórico de tickets"
+                                    + "\n 11 - Acumulado de ventas"
+                                    + "\n 0 - Guardar datos y SALIR");
 
                 opcionMenu = input.nextInt();
                 input.nextLine();
