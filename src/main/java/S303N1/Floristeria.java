@@ -34,6 +34,10 @@ public class Floristeria {
     }
 
     //Setters
+
+    public void  setNombre(String nuevoNombre) {
+        this.nombre = nuevoNombre;
+    }
     public void setCatalogo (List<Producto> catalogoAnterior) {
         this.catalogo = catalogoAnterior;
     }

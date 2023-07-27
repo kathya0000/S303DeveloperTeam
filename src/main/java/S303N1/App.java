@@ -44,12 +44,17 @@ public class App {
             if (nombreArchivoPrevio != null) {
 
                 //CASO 1 DE 2: LA FLORISTERIA YA TIENE DATOS: LOS CARGAMOS EN EL CATALOGO
+                floristeria.setNombre(nombreArchivoPrevio.replace(".txt", ""));
                 System.out.println("Existen datos anteriores de " + floristeria.getNombre());
                 System.out.println("         cargando datos previos...");
                 ProductoDAO productoDao = new ProductoTXTDAO(floristeria.getNombre());
                 List<Producto> productos = productoDao.cargarProductos();
                 floristeria.setCatalogo(productos);
-
+                try{
+                    Thread.sleep(2000);
+                }catch(InterruptedException e) {
+                    e.printStackTrace();
+                }
 
             } else {
 
@@ -144,7 +149,7 @@ public class App {
                         floristeria.retirarProducto(nombreDecorAEliminar);
                         break;
                     case 8:
-                        System.out.println("\nValor de existencias = €" + floristeria.calcularValorTotal());
+                        System.out.println("\nValor de existencias de '"  + floristeria.getNombre() +  "' = €" + floristeria.calcularValorTotal());
                         System.out.println("***********************************");
                         floristeria.mostrarStock();
                         break;
