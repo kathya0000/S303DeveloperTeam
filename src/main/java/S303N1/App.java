@@ -1,6 +1,7 @@
 package S303N1;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -50,6 +51,7 @@ public class App {
                 ProductoDAO productoDao = new ProductoTXTDAO(floristeria.getNombre());
                 List<Producto> productos = productoDao.cargarProductos();
                 floristeria.setCatalogo(productos);
+
                 try{
                     Thread.sleep(2000);
                 }catch(InterruptedException e) {
