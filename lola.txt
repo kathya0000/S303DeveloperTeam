@@ -1,0 +1,2 @@
+Arbol,alamo,3.4,3.0
+Arbol,margarita,5.0,1.0
