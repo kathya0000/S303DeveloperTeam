@@ -43,12 +43,12 @@ public class Ticket {
     public void verTicket() {
         //Verifica si el numTicket ya esta hecho
         System.out.println("Número de ticket: " + numeroTicket);
-        System.out.println(" Fecha de venta: " + fechaTicket);
-        System.out.println(" Artículos:");
+        System.out.println("Fecha de venta: " + fechaTicket);
+        System.out.println("Artículos:");
         for (LineaTicket linea : lineas) {
             System.out.println("   " + linea.getNumLinea() + " - 1ud." + linea.getProducto().getNombre() + " - €" + linea.getPrecio());
         }
-        System.out.println(" Importe total: €" + totalVenta + " \n");
+        System.out.println("Importe total: €" + totalVenta + " \n");
     }
 
     //Calcular Total tickets
