@@ -4,5 +4,6 @@ import java.util.List;
 
 public interface ProductoDAO {
     List<Producto> cargarProductos();
-    void guardarProductos(List<Producto> productos);
+    List<Ticket> cargarTickets();
+    void guardarProductosYTickets(List<Producto> productos, List<Ticket> tickets);
 }

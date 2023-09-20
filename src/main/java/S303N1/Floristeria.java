@@ -10,7 +10,6 @@ public class Floristeria {
     private String nombre;
     private static String nombreArchivo;    //fichero donde se guardarán los datos, con el nombre de la floristería
     private List<Producto> catalogo;
-    private Map<Producto, Integer> stock;
     private double valorTotalInventario;
 
     //Constructor
@@ -18,7 +17,6 @@ public class Floristeria {
         this.nombre = nombre;
         this.catalogo = new ArrayList<>();
         this.tickets = new ArrayList<>();
-        this.stock = new HashMap<>();
 
     }
     // Getters
@@ -33,6 +31,7 @@ public class Floristeria {
         return tickets;
     }
 
+
     //Setters
 
     public void  setNombre(String nuevoNombre) {
@@ -41,9 +40,10 @@ public class Floristeria {
     public void setCatalogo (List<Producto> catalogoAnterior) {
         this.catalogo = catalogoAnterior;
     }
-    /*public void setHistoricoTickets (ArrayList<Ticket> historicoTickets) {
+    public void setHistoricoTickets (ArrayList<Ticket> historicoTickets) {
         this.tickets = historicoTickets;
-    }*/
+    }
+
 
     //Metodos generales
     //recibe un objeto Producto y lo agrega al catálogo de la floristería.
@@ -77,7 +77,7 @@ public class Floristeria {
 
     //muestra por consola el catálogo de la floristería, mostrando todos los atributos de cada producto
     public void mostrarCatalogo() {
-        System.out.println("\nCatálogo de la Floristeria " + Floristeria.this.getNombre() + ":\n");
+        System.out.println("\nCatálogo de la floristeria '" + Floristeria.this.getNombre() + "':\n");
 
         int stockArboles = 0;
         boolean hayArboles = false;//variable boolean para verificar si hay arboles
@@ -193,15 +193,15 @@ public class Floristeria {
         for (Producto producto : catalogo) {
             if (producto instanceof Arbol) {
                 cantidadArboles++;
-                valorArboles = producto.getPrecio();
+                valorArboles += producto.getPrecio();
                 System.out.println("1 un.ARBOL: " + producto.getNombre() + " valorado en: " + producto.getPrecio() + "EUR");
             } else if (producto instanceof Flor) {
                 cantidadFlores++;
-                valorFlores = producto.getPrecio();
+                valorFlores += producto.getPrecio();
                 System.out.println("1 un.FLOR: " + producto.getNombre() + " valorada en: " + producto.getPrecio() + "EUR");
             } else if (producto instanceof Decoracion) {
                 cantidadDecoraciones++;
-                valorDecoraciones = producto.getPrecio();
+                valorDecoraciones += producto.getPrecio();
                 System.out.println("1 un.DECORACION: " + producto.getNombre() + " valorada en: " + producto.getPrecio() + "EUR");
             }
         }

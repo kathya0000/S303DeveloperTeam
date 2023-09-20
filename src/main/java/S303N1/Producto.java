@@ -1,6 +1,8 @@
 package S303N1;
 
-public abstract class Producto {
+import java.io.Serializable;
+
+public abstract class Producto implements Serializable {
     private String nombre;
     private double precio;
 
@@ -9,25 +11,15 @@ public abstract class Producto {
         this.precio = precio;
     }
 
-    // Getters y setters
+    // Getters (setters no hacen falta)
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
 
     public double getPrecio() {
         return precio;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
-    }
 
-    public int restarCantidad(int cantidad) {
-        return cantidad;
-    }
 }
-
