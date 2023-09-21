@@ -1,5 +1,6 @@
 package S303N1;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public abstract class Producto implements Serializable {

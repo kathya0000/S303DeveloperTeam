@@ -8,12 +8,9 @@ public class Decoracion extends Producto {
         this.tipoMaterial = tipoMaterial;
     }
 
-    // Getter y setter
+    // Getter
     public String getTipoMaterial() {
         return tipoMaterial;
     }
 
-    public void setTipoMaterial(String tipoMaterial) {
-        this.tipoMaterial = tipoMaterial;
-    }
 }

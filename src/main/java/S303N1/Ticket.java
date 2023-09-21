@@ -35,7 +35,7 @@ public class Ticket implements Serializable {
     }
 
 
-    //Getter
+    //Getters
     public int getNumeroTicket() {  return numeroTicket;    }
     public Date getFechaTicket() {  return fechaTicket;    }
     public double getTotalVenta() { return totalVenta;  }
@@ -61,14 +61,6 @@ public class Ticket implements Serializable {
             System.out.println("   " + linea.getNumLinea() + " - 1ud." + linea.getProducto().getNombre() + " - €" + linea.getPrecio());
         }
         System.out.println(" Importe total: €" + totalVenta + " \n");
-    }
-
-    //Calcular Total tickets
-    private void calcularTotalVenta () {
-        totalVenta = 0.0;
-        for (LineaTicket linea : lineas) {
-            totalVenta += linea.getPrecio();
-        }
     }
 
 }

@@ -2,7 +2,6 @@ package S303N1;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,7 +34,7 @@ public class App {
             Scanner input = new Scanner(System.in);
             System.out.println("Nombre de la floristería: ");
             String nombreFloristeria = input.nextLine();
-            Floristeria floristeria = new Floristeria(nombreFloristeria);
+            Floristeria floristeria = new Floristeria(nombreFloristeria);    //*****INSTANCIAMOS*****
 
             // Directorio donde se encuentran los archivos de persistencia
             String directorioPersistencia = ".";
@@ -45,13 +44,15 @@ public class App {
 
             if (nombreArchivoPrevio != null) {
 
-                //CASO 1 DE 2: LA FLORISTERIA YA TIENE DATOS: LOS CARGAMOS EN EL CATALOGO
+                //****CASO 1 DE 2:**** LA FLORISTERIA YA TIENE DATOS: LOS CARGAMOS EN EL CATALOGO
+
                 floristeria.setNombre(nombreArchivoPrevio.replace(".txt", ""));
                 System.out.println("Existen datos anteriores de " + nombreArchivoPrevio.replace(".txt", ""));
                 System.out.println("         cargando datos previos...");
                 ProductoDAO productoDao = new ProductoTXTDAO(floristeria.getNombre());
+                TicketDAO ticketDao = new TicketTXTDAO(floristeria.getNombre());
                 List<Producto> productos = productoDao.cargarProductos();
-                List<Ticket> tickets = productoDao.cargarTickets();
+                List<Ticket> tickets = ticketDao.cargarTickets();
                 floristeria.setCatalogo(productos);
                 floristeria.setHistoricoTickets((ArrayList<Ticket>) tickets);
                 try {
@@ -63,11 +64,12 @@ public class App {
 
             } else {
 
-                //CASO 2 DE 2: FLORISTERIA NUEVA: MENÚ "INICIAL" DE ENTRADA DE LOS PRIMEROS DATOS
-                ProductoDAO productoDao = new ProductoTXTDAO(floristeria.getNombre());
+                //****CASO 2 DE 2:**** FLORISTERIA NUEVA: MENÚ "INICIAL" DE ENTRADA DE LOS PRIMEROS DATOS
+
                 boolean out = false;
                 do{
-                    System.out.println( "\nMenú inicial nueva floristería:\n"+
+                    //MENÚ PREVIO DE ARRANQUE DE FLORISTERIA:
+                    System.out.println( "\nMenú de arranque de nueva floristería:\n"+
                                         "\n 1 - Añadir primer arbol"+
                                         "\n 2 - Añadir primera flor"+
                                         "\n 3 - Añadir primera decoración"+
@@ -98,19 +100,19 @@ public class App {
                 } while(!out);
             }
 
-            //MENÚ PRINCIPAL. AL SALIR, GUARDAREMOS LOS DATOS EN [NOMBRE_FLORISTERIA].TXT
+            //MENÚ PRINCIPAL. AL SALIR, SE GUARDAN LOS DATOS EN [NOMBRE_FLORISTERIA].TXT
 
             boolean salir = false;
             int opcionMenu;
             do {
                 System.out.println( "\nMENU PRINCIPAL:"+
-                                    "\n 1 - Añadir nueva instancia arbol"+
-                                    "\n 2 - Añadir nueva instancia flor"+
-                                    "\n 3 - Añadir nueva instancia decoración"+
-                                    "\n 4 - Listado de stock (instancias añadidas - eliminadas)"+
-                                    "\n 5 - Retirar instancia arbol (venta ficticia)"+
-                                    "\n 6 - Retirar instancia flor (venta ficticia)"+
-                                    "\n 7 - Retirar instancia decoración (venta ficticia)"+
+                                    "\n 1 - Añadir arbol"+
+                                    "\n 2 - Añadir flor"+
+                                    "\n 3 - Añadir decoración"+
+                                    "\n 4 - Listado de stock"+
+                                    "\n 5 - Eliminar arbol"+
+                                    "\n 6 - Eliminar flor"+
+                                    "\n 7 - Eliminar decoración"+
                                     "\n 8 - Valor de existencias"+
                                     "\n 9 - Registrar una venta e imprimir ticket"+
                                     "\n10 - Listado histórico de tickets"+
@@ -122,8 +124,10 @@ public class App {
 
                 switch (opcionMenu) {
                     case 0:
-                        ProductoDAO dao = new ProductoTXTDAO(nombreFloristeria);
-                        dao.guardarProductosYTickets(floristeria.getCatalogo(), floristeria.getHistoricoTickets());
+                        ProductoDAO daoP = new ProductoTXTDAO(nombreFloristeria);
+                        TicketDAO daoT = new TicketTXTDAO(nombreFloristeria);
+                        daoP.guardarProductos(floristeria.getCatalogo());
+                        daoT.guardarTickets(floristeria.getHistoricoTickets());
                         salir = true;
                         break;
                     case 1:

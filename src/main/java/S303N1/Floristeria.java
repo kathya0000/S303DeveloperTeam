@@ -129,7 +129,7 @@ public class Floristeria {
 
     //Generar TICKET
     public Ticket generarTicket() throws InterruptedException {
-        Ticket nuevoTicket = new Ticket();      //faltará añadir productos (lineas)
+        Ticket nuevoTicket = new Ticket();
         generarVenta(nuevoTicket);
         tickets.add(nuevoTicket);    // Agregar el ticket a la lista de tickets
         return nuevoTicket;
@@ -173,8 +173,6 @@ public class Floristeria {
                 agregarProductos = false;
             }
 
-            /*Registra la venta en el histórico de Tickets
-            tickets.add(nuevoTicket);*/
         }
     }
 

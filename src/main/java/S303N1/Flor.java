@@ -8,12 +8,9 @@ public class Flor extends Producto {
         this.color = color;
     }
 
-    // Getter y setter
+    // Getter
     public String getColor() {
         return color;
     }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
 }

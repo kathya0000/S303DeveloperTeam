@@ -8,12 +8,9 @@ public class Arbol extends Producto {
         this.altura = altura;
     }
 
-    // Getter y setter
+    // Getter
     public double getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
-        this.altura = altura;
-    }
 }
