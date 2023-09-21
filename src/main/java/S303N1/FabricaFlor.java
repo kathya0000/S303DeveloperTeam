@@ -1,7 +1,5 @@
 package S303N1;
 
-import java.util.Scanner;
-
 public class FabricaFlor implements FabricaProducto {
     private String nombreFlor;
     private double precioFlor;

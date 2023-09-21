@@ -1,7 +1,5 @@
 package S303N1;
 
-import java.util.Scanner;
-
 public class FabricaArbol implements FabricaProducto {
     private String nombreArbol;
     private double precioArbol;
@@ -11,6 +9,7 @@ public class FabricaArbol implements FabricaProducto {
         this.precioArbol = precioArbol;
         this.alturaArbol = alturaArbol;
     }
+
     @Override
     public Producto crearProducto() {
         return new Arbol(nombreArbol, precioArbol, alturaArbol);
