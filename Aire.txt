@@ -1,4 +1,0 @@
-Arbol,pino,2.3,3.0
-Arbol,cerezo,3.4,2.0
-Decoracion,jarron,1.0,plastico
-Decoracion,corona,120.7,flores
